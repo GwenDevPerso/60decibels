@@ -5,19 +5,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/preview/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/preview/page.js"
-    ],
-    "/api/upload/finalize/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/upload/finalize/route.js"
-    ],
     "/upload/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+      "static/css/app/upload/page.css",
       "static/chunks/app/upload/page.js"
     ],
     "/api/upload/init/route": [
@@ -29,6 +20,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/upload/chunk/route.js"
+    ],
+    "/api/upload/finalize/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/upload/finalize/route.js"
     ]
   }
 }

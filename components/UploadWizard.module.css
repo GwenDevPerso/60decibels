@@ -1,0 +1,365 @@
+/* UploadWizard Component Styles */
+
+.wizard {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 24px;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+    margin-bottom: 24px;
+}
+
+.label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.fileInputWrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.fileButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+    background: white;
+    transition: background-color 0.2s;
+    border: none;
+}
+
+.fileButtonEnabled {
+    cursor: pointer;
+}
+
+.fileButtonEnabled:hover {
+    background-color: #f9fafb;
+}
+
+.fileButtonDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.fileInfo {
+    font-size: 14px;
+    color: #4b5563;
+    font-weight: 500;
+}
+
+.fileHint {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.progress {
+    margin-bottom: 24px;
+}
+
+.progressHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.progressLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #374151;
+}
+
+.progressPercent {
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.progressBar {
+    width: 100%;
+    height: 12px;
+    background-color: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background-color: #2563eb;
+    transition: width 0.3s ease-out;
+    border-radius: 999px;
+}
+
+.progressDetails {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.status {
+    margin-bottom: 24px;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.statusContent {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.statusIcon {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.statusInfo {
+    flex: 1;
+}
+
+.statusTitle {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.statusDescription {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+.statusError {
+    font-size: 14px;
+    margin-top: 8px;
+    color: #dc2626;
+}
+
+.statusErrorMargin {
+    margin-top: 8px;
+}
+
+.statusSession {
+    font-size: 12px;
+    margin-top: 8px;
+    color: #6b7280;
+}
+
+.statusIdle {
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+}
+
+.statusUploading {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.statusUploading .statusTitle {
+    color: #2563eb;
+}
+
+.statusUploading .statusIcon {
+    color: #2563eb;
+}
+
+.statusDone {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+.statusDone .statusTitle {
+    color: #16a34a;
+}
+
+.statusDone .statusIcon {
+    color: #16a34a;
+}
+
+.statusErrorState {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+}
+
+.statusErrorState .statusTitle {
+    color: #dc2626;
+}
+
+.statusErrorState .statusIcon {
+    color: #dc2626;
+}
+
+.statusCanceled {
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+}
+
+.statusCanceled .statusTitle {
+    color: #6b7280;
+}
+
+.statusCanceled .statusIcon {
+    color: #6b7280;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background-color 0.2s,
+        opacity 0.2s;
+    border: none;
+}
+
+.buttonPrimary {
+    background-color: #2563eb;
+    color: white;
+}
+
+.buttonPrimary:hover {
+    background-color: #1d4ed8;
+}
+
+.buttonPrimary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.buttonRetry {
+    background-color: #ea580c;
+    color: white;
+
+    &:hover {
+        background-color: #c2410c;
+    }
+}
+
+.buttonSecondary {
+    background-color: #e5e7eb;
+    color: #374151;
+}
+
+.buttonSecondary:hover {
+    background-color: #d1d5db;
+}
+
+.buttonSecondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.buttonTertiary {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.buttonTertiary:hover {
+    background-color: #e5e7eb;
+}
+
+.buttonSuccess {
+    background-color: #16a34a;
+    color: white;
+}
+
+.buttonSuccess:hover {
+    background-color: #15803d;
+}
+
+.buttonSuccess:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Phase indicators */
+.phaseContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.phaseItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.phaseItemActive {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.phaseItemCompleted {
+    color: #16a34a;
+}
+
+.phaseItemPending {
+    color: #9ca3af;
+    font-weight: 400;
+}
+
+.phaseBadge {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.phaseBadgeActive {
+    background-color: #2563eb;
+    color: white;
+}
+
+.phaseBadgeCompleted {
+    background-color: #16a34a;
+    color: white;
+}
+
+.phaseBadgePending {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+}
+
+.phaseConnector {
+    width: 40px;
+    height: 2px;
+}
+
+.phaseConnectorCompleted {
+    background-color: #16a34a;
+}
+
+.phaseConnectorPending {
+    background-color: #e5e7eb;
+}
+
+.hiddenInput {
+    display: none;
+}
