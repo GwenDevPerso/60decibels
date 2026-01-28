@@ -1,3 +1,8 @@
 {
-  "/upload/page": "app/upload/page.js"
+  "/api/upload/init/route": "app/api/upload/init/route.js",
+  "/api/upload/chunk/route": "app/api/upload/chunk/route.js",
+  "/api/upload/finalize/route": "app/api/upload/finalize/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/upload/page": "app/upload/page.js",
+  "/preview/page": "app/preview/page.js"
 }

@@ -1,14 +1,15 @@
-import UploadWizard from "@/components/UploadWizard"
+import UploadWizard from "@/components/UploadWizard";
+import pageStyles from "../page.module.css";
 
 export default function UploadPage() {
   return (
     <main>
-      <h1 style={{ margin: "8px 0 4px" }}>Upload</h1>
-      <p style={{ marginTop: 0, color: "#555" }}>
+      <h1 className={pageStyles.title}>Upload</h1>
+      <p className={pageStyles.description}>
         Upload a CSV using chunking (serverless request size constraints assumed).
       </p>
       <UploadWizard />
     </main>
-  )
+  );
 }
 

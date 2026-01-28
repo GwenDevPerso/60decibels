@@ -3,6 +3,7 @@
 import {useEffect, useMemo, useState} from "react";
 import type {PreviewResponse} from "@/lib/types";
 import {detectSchemaIssues, type SchemaIssue} from "@/lib/schema-detection";
+import styles from "./DataPreviewTable.module.css";
 
 /**
  * Number of columns to show by default
@@ -95,40 +96,21 @@ export default function DataPreviewTable() {
   }, [data]);
 
   // Show loading state while extracting sessionId to avoid hydration mismatch
-  if (!sessionIdExtracted) return <div style={{color: "#666"}}>Loading preview…</div>;
-  if (!sessionId) return <div style={{color: "#666"}}>Missing sessionId. Upload first, then click "Go to preview".</div>;
-  if (error) return <div style={{color: "#b00020"}}>{error}</div>;
-  if (!data) return <div style={{color: "#666"}}>Loading preview…</div>;
+  if (!sessionIdExtracted) return <div className={styles.loading}>Loading preview…</div>;
+  if (!sessionId) return <div className={styles.loading}>Missing sessionId. Upload first, then click "Go to preview".</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
+  if (!data) return <div className={styles.loading}>Loading preview…</div>;
 
   return (
-    <div
-      id="data-preview-table"
-      style={{
-        display: "grid",
-        gap: 14,
-        width: "100%",
-        maxWidth: "100%",
-        overflow: "hidden",
-      }}
-    >
+    <div id="data-preview-table" className={styles.container}>
       {/* Schema Issues Panel */}
       {schemaIssues.length > 0 && (
-        <div
-          style={{
-            border: "1px solid #ffa726",
-            borderRadius: 12,
-            padding: 12,
-            background: "#fff3e0",
-            width: "100%",
-            maxWidth: "100%",
-            overflow: "hidden",
-          }}
-        >
-          <div style={{fontWeight: 650, marginBottom: 8, display: "flex", alignItems: "center", gap: 6}}>
+        <div className={styles.schemaIssuesPanel}>
+          <div className={styles.schemaIssuesHeader}>
             <span>⚠️</span>
             <span>Schema Issues Detected ({schemaIssues.length})</span>
           </div>
-          <div style={{display: "flex", flexDirection: "column", gap: 6}}>
+          <div className={styles.schemaIssuesList}>
             {schemaIssues.map((issue, idx) => (
               <SchemaIssueItem key={idx} issue={issue} />
             ))}
@@ -137,33 +119,26 @@ export default function DataPreviewTable() {
       )}
 
       {/* Columns Overview */}
-      <div style={{border: "1px solid #e5e5e5", borderRadius: 12, padding: 12, maxWidth: "100%", overflow: "hidden"}}>
-        <div style={{fontWeight: 650, marginBottom: 6, display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+      <div className={styles.columnsPanel}>
+        <div className={styles.columnsHeader}>
           <span>Columns ({columns.length})</span>
           {hasMoreColumns && (
             <button
               onClick={() => setShowAllColumns(!showAllColumns)}
-              style={{
-                padding: "4px 8px",
-                borderRadius: 4,
-                border: "1px solid #e5e5e5",
-                background: "white",
-                cursor: "pointer",
-                fontSize: 11,
-              }}
+              className={styles.columnsToggleButton}
             >
               {showAllColumns ? `Show first ${DEFAULT_VISIBLE_COLUMNS}` : `Show all ${columns.length}`}
             </button>
           )}
         </div>
-        <div style={{display: "flex", flexWrap: "wrap", gap: 8, width: "100%", maxWidth: "100%"}}>
+        <div className={styles.columnsList}>
           {visibleColumns.map((c) => (
-            <span key={c} style={{padding: "4px 8px", borderRadius: 999, background: "#f3f3f3", fontSize: 12}}>
-              <b>{c}</b> <span style={{color: "#666"}}>({types[c] ?? "unknown"})</span>
+            <span key={c} className={styles.columnTag}>
+              <b>{c}</b> <span className={styles.columnTagType}>({types[c] ?? "unknown"})</span>
             </span>
           ))}
           {hasMoreColumns && !showAllColumns && (
-            <span style={{padding: "4px 8px", borderRadius: 999, background: "#e3f2fd", fontSize: 12, color: "#1976d2"}}>
+            <span className={styles.columnTagMore}>
               +{columns.length - DEFAULT_VISIBLE_COLUMNS} more
             </span>
           )}
@@ -180,39 +155,25 @@ export default function DataPreviewTable() {
 
       {/* Pagination Controls */}
       {rows.length > ROWS_PER_PAGE && (
-        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 12}}>
-          <div style={{color: "#666"}}>
+        <div className={styles.pagination}>
+          <div className={styles.paginationInfo}>
             Showing {startRow + 1}-{Math.min(endRow, rows.length)} of {rows.length} rows
           </div>
-          <div style={{display: "flex", gap: 8}}>
+          <div className={styles.paginationControls}>
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              style={{
-                padding: "4px 12px",
-                borderRadius: 4,
-                border: "1px solid #e5e5e5",
-                background: currentPage === 1 ? "#f5f5f5" : "white",
-                cursor: currentPage === 1 ? "not-allowed" : "pointer",
-                opacity: currentPage === 1 ? 0.5 : 1,
-              }}
+              className={styles.paginationButton}
             >
               Previous
             </button>
-            <span style={{padding: "4px 8px", color: "#666"}}>
+            <span className={styles.paginationPageInfo}>
               Page {currentPage} of {totalPages}
             </span>
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              style={{
-                padding: "4px 12px",
-                borderRadius: 4,
-                border: "1px solid #e5e5e5",
-                background: currentPage === totalPages ? "#f5f5f5" : "white",
-                cursor: currentPage === totalPages ? "not-allowed" : "pointer",
-                opacity: currentPage === totalPages ? 0.5 : 1,
-              }}
+              className={styles.paginationButton}
             >
               Next
             </button>
@@ -227,27 +188,15 @@ export default function DataPreviewTable() {
  * Displays a single schema issue with appropriate styling
  */
 function SchemaIssueItem({issue}: {issue: SchemaIssue;}) {
-  const severityColors = {
-    error: {bg: "#ffebee", border: "#e57373", text: "#c62828"},
-    warning: {bg: "#fff3e0", border: "#ffb74d", text: "#e65100"},
-  };
-  const colors = severityColors[issue.severity];
+  const isError = issue.severity === "error";
 
   return (
-    <div
-      style={{
-        padding: 8,
-        borderRadius: 6,
-        background: colors.bg,
-        border: `1px solid ${colors.border}`,
-        fontSize: 12,
-      }}
-    >
-      <div style={{fontWeight: 600, color: colors.text}}>
-        <span style={{marginRight: 4}}>{issue.severity === "error" ? "❌" : "⚠️"}</span>
-        <span style={{fontWeight: 600}}>{issue.column}</span>: {issue.message}
+    <div className={`${styles.schemaIssueItem} ${isError ? styles.schemaIssueItemError : styles.schemaIssueItemWarning}`}>
+      <div className={`${styles.schemaIssueHeader} ${isError ? styles.schemaIssueHeaderError : styles.schemaIssueHeaderWarning}`}>
+        <span className={styles.schemaIssueIcon}>{isError ? "❌" : "⚠️"}</span>
+        <span className={styles.schemaIssueColumn}>{issue.column}</span>: {issue.message}
       </div>
-      {issue.details && <div style={{marginTop: 4, color: "#666", fontSize: 11}}>{issue.details}</div>}
+      {issue.details && <div className={styles.schemaIssueDetails}>{issue.details}</div>}
     </div>
   );
 }
@@ -279,28 +228,13 @@ function TableView({
       : visibleColumns.length * 120;
 
   return (
-    <div style={{border: "1px solid #e5e5e5", borderRadius: 12, padding: 12, maxWidth: "100%", overflow: "hidden"}}>
-      <div style={{fontWeight: 650, marginBottom: 8}}>Rows (preview)</div>
+    <div className={styles.tablePanel}>
+      <div className={styles.tableHeader}>Rows (preview)</div>
 
-      <div
-        style={{
-          overflowX: isSmallDataset ? "hidden" : "auto",
-          overflowY: "visible",
-          borderRadius: 10,
-          border: "1px solid #eee",
-          position: "relative",
-          width: "100%",
-          maxWidth: "100%",
-        }}
-      >
+      <div className={`${styles.tableContainer} ${isSmallDataset ? styles.tableContainerSmall : ""}`}>
         <table
-          style={{
-            borderCollapse: "collapse",
-            width: isSmallDataset ? "100%" : undefined,
-            minWidth: isSmallDataset ? undefined : `${Math.max(minTableWidth ?? 800, 800)}px`,
-            fontSize: 12,
-            tableLayout: isSmallDataset ? "auto" : "fixed",
-          }}
+          className={`${styles.table} ${isSmallDataset ? styles.tableSmall : styles.tableLarge}`}
+          style={!isSmallDataset && minTableWidth ? {minWidth: `${Math.max(minTableWidth, 800)}px`} : undefined}
         >
           <thead>
             <tr>
@@ -309,22 +243,10 @@ function TableView({
                 return (
                   <th
                     key={c}
-                    style={{
-                      textAlign: "left",
-                      padding: 8,
-                      borderBottom: "1px solid #eee",
-                      whiteSpace: "nowrap",
-                      position: isSticky ? ("sticky" as const) : "static",
-                      left: isSticky ? 0 : "auto",
-                      background: isSticky ? "white" : "transparent",
-                      zIndex: isSticky ? 10 : 1,
-                      boxShadow: isSticky ? "2px 0 4px rgba(0,0,0,0.1)" : "none",
-                      minWidth: isSmallDataset ? undefined : isSticky ? 150 : 120,
-                      width: isSmallDataset ? "auto" : undefined,
-                    }}
+                    className={`${styles.tableHeaderCell} ${isSticky ? styles.tableHeaderCellSticky : ""} ${isSmallDataset ? styles.tableHeaderCellSmall : isSticky ? styles.tableHeaderCellLarge : styles.tableHeaderCellLargeNotSticky}`}
                   >
                     {c}
-                    <span style={{marginLeft: 4, color: "#999", fontWeight: 400, fontSize: 10}}>
+                    <span className={styles.tableHeaderType}>
                       ({types[c] ?? "unknown"})
                     </span>
                   </th>
@@ -340,21 +262,7 @@ function TableView({
                   return (
                     <td
                       key={c}
-                      style={{
-                        padding: 8,
-                        borderBottom: "1px solid #f3f3f3",
-                        whiteSpace: "nowrap",
-                        position: isSticky ? ("sticky" as const) : "static",
-                        left: isSticky ? 0 : "auto",
-                        background: isSticky ? "white" : "transparent",
-                        zIndex: isSticky ? 10 : 1,
-                        boxShadow: isSticky ? "2px 0 4px rgba(0,0,0,0.1)" : "none",
-                        minWidth: isSmallDataset ? undefined : isSticky ? 150 : 120,
-                        maxWidth: isSmallDataset ? undefined : isSticky ? 150 : "none",
-                        width: isSmallDataset ? "auto" : undefined,
-                        overflow: isSticky ? "hidden" : "visible",
-                        textOverflow: isSticky ? "ellipsis" : "clip",
-                      }}
+                      className={`${styles.tableCell} ${isSticky ? styles.tableCellSticky : ""} ${isSmallDataset ? styles.tableCellSmall : isSticky ? styles.tableCellLarge : styles.tableCellLargeNotSticky}`}
                     >
                       {String(r[c] ?? "")}
                     </td>

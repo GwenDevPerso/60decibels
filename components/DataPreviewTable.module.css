@@ -1,0 +1,293 @@
+/* DataPreviewTable Component Styles */
+
+.container {
+    display: grid;
+    gap: 14px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.loading {
+    color: #666;
+}
+
+.error {
+    color: #b00020;
+}
+
+.schemaIssuesPanel {
+    border: 1px solid #ffa726;
+    border-radius: 12px;
+    padding: 12px;
+    background: #fff3e0;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.schemaIssuesHeader {
+    font-weight: 650;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.schemaIssuesList {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.schemaIssueItem {
+    padding: 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.schemaIssueItemError {
+    background: #ffebee;
+    border: 1px solid #e57373;
+}
+
+.schemaIssueItemWarning {
+    background: #fff3e0;
+    border: 1px solid #ffb74d;
+}
+
+.schemaIssueHeader {
+    font-weight: 600;
+}
+
+.schemaIssueHeaderError {
+    color: #c62828;
+}
+
+.schemaIssueHeaderWarning {
+    color: #e65100;
+}
+
+.schemaIssueIcon {
+    margin-right: 4px;
+}
+
+.schemaIssueColumn {
+    font-weight: 600;
+}
+
+.schemaIssueDetails {
+    margin-top: 4px;
+    color: #666;
+    font-size: 11px;
+}
+
+.columnsPanel {
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 12px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.columnsHeader {
+    font-weight: 650;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.columnsToggleButton {
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #e5e5e5;
+    background: white;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.columnsToggleButton:hover {
+    background: #f9fafb;
+}
+
+.columnsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.columnTag {
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #f3f3f3;
+    font-size: 12px;
+}
+
+.columnTagType {
+    color: #666;
+}
+
+.columnTagMore {
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #e3f2fd;
+    font-size: 12px;
+    color: #1976d2;
+}
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+}
+
+.paginationInfo {
+    color: #666;
+}
+
+.paginationControls {
+    display: flex;
+    gap: 8px;
+}
+
+.paginationButton {
+    padding: 4px 12px;
+    border-radius: 4px;
+    border: 1px solid #e5e5e5;
+    background: white;
+    cursor: pointer;
+}
+
+.paginationButton:hover:not(:disabled) {
+    background: #f9fafb;
+}
+
+.paginationButton:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.paginationPageInfo {
+    padding: 4px 8px;
+    color: #666;
+}
+
+.tablePanel {
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 12px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.tableHeader {
+    font-weight: 650;
+    margin-bottom: 8px;
+}
+
+.tableContainer {
+    overflow-x: auto;
+    overflow-y: visible;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+.tableContainerSmall {
+    overflow-x: hidden;
+}
+
+.table {
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.tableSmall {
+    width: 100%;
+    table-layout: auto;
+}
+
+.tableLarge {
+    table-layout: fixed;
+}
+
+.tableHeaderCell {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+    position: static;
+    background: transparent;
+    z-index: 1;
+    box-shadow: none;
+}
+
+.tableHeaderCellSticky {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 10;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.tableHeaderCellSmall {
+    width: auto;
+}
+
+.tableHeaderCellLarge {
+    min-width: 150px;
+}
+
+.tableHeaderCellLargeNotSticky {
+    min-width: 120px;
+    width: auto;
+}
+
+.tableHeaderType {
+    margin-left: 4px;
+    color: #999;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+.tableCell {
+    padding: 8px;
+    border-bottom: 1px solid #f3f3f3;
+    white-space: nowrap;
+    position: static;
+    background: transparent;
+    z-index: 1;
+    box-shadow: none;
+}
+
+.tableCellSticky {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 10;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tableCellSmall {
+    width: auto;
+}
+
+.tableCellLarge {
+    min-width: 150px;
+    max-width: 150px;
+}
+
+.tableCellLargeNotSticky {
+    min-width: 120px;
+    max-width: none;
+    width: auto;
+}
