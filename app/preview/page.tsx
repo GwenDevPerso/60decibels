@@ -1,14 +1,14 @@
-import DataPreviewTable from "@/components/DataPreviewTable"
+import DataPreviewTable from "@/components/DataPreviewTable";
 
 export default function PreviewPage() {
   return (
-    <main>
-      <h1 style={{ margin: "8px 0 4px" }}>Preview</h1>
-      <p style={{ marginTop: 0, color: "#555" }}>
+    <main style={{width: "100%", maxWidth: "100%", overflow: "hidden"}}>
+      <h1 style={{margin: "8px 0 4px"}}>Preview</h1>
+      <p style={{marginTop: 0, color: "#555"}}>
         Basic sanity-check view: column list + first rows.
       </p>
       <DataPreviewTable />
     </main>
-  )
+  );
 }
 

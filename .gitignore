@@ -1,3 +1,5 @@
 node_modules
 .next
 .cursor
+.data
+public/sample-large.csv
