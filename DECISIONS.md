@@ -8,7 +8,7 @@ This document outlines the improvements and architectural decisions made for the
 
 ### Overview
 
-The `UploadWizard` component implements a complete, user-friendly file upload workflow that addresses all requirements from the take-home exercise. It provides clear phase-based progress tracking, actionable error messages, and robust state management.
+The `UploadWizard` component implements a complete, user-friendly file upload workflow. It provides clear phase-based progress tracking, actionable error messages, and robust state management.
 
 ### 1. Multi-Phase Progress Indicator
 
@@ -24,7 +24,6 @@ The `UploadWizard` component implements a complete, user-friendly file upload wo
 
 **Why:**
 
-- Addresses TAKEHOME requirement: "Design a clear, user-trustworthy upload workflow" with "explicit phases"
 - Provides visual feedback that users can trust
 - Makes it clear what stage the upload is in at all times
 
@@ -48,7 +47,6 @@ The `UploadWizard` component implements a complete, user-friendly file upload wo
 
 **Why:**
 
-- Addresses TAKEHOME requirement: "Clearly explain what's happening at each stage"
 - Assumes users are non-technical (as specified)
 - Provides actionable context, not just status codes
 
@@ -66,7 +64,6 @@ The `UploadWizard` component implements a complete, user-friendly file upload wo
 
 **Why:**
 
-- Addresses TAKEHOME requirement: "Handle errors with actionable messaging"
 - Assumes users are non-technical
 - Provides clear next steps, not just error codes
 
@@ -100,7 +97,6 @@ The `UploadWizard` component implements a complete, user-friendly file upload wo
 
 **Why:**
 
-- Addresses TAKEHOME requirement: "Communicate progress users can trust"
 - More accurate than chunk-based progress (especially for last chunk)
 - Provides both percentage and absolute values for clarity
 
@@ -118,7 +114,7 @@ The `UploadWizard` component implements a complete, user-friendly file upload wo
 
 - Prevents invalid actions (e.g., starting upload without file)
 - Provides clear retry path after failures
-- Supports cancellation as specified in TAKEHOME optional extensions
+- Supports cancellation
 
 ### 7. React 19 & Next.js Optimizations
 
@@ -285,49 +281,41 @@ Fixes React hydration mismatches:
 - **Loading state** - Shows consistent loading message during extraction
 - **Hook order** - All hooks called before conditional returns to maintain consistent hook order
 
-## Comparison with TAKEHOME Requirements
+## Key Features Implemented
 
-### ✅ Completed Requirements
+### Upload Experience
 
-**1. Improve the upload experience (UX)**
+- Clear, user-trustworthy upload workflow with explicit phases (Select → Validate → Upload → Finalize → Ready)
+- Progress users can trust (byte-based, not chunk-based)
+- Clear explanations at each stage (contextual descriptions)
+- Actionable error messaging (transformed technical errors)
+- Sensible retry support (retry button appears on failure)
+- No premature "success" (only shows success after finalization completes)
+- Assumes non-technical users (all messages are user-friendly)
 
-- ✅ Clear, user-trustworthy upload workflow with explicit phases (Select → Validate → Upload → Finalize → Ready)
-- ✅ Progress users can trust (byte-based, not chunk-based)
-- ✅ Clear explanations at each stage (contextual descriptions)
-- ✅ Actionable error messaging (transformed technical errors)
-- ✅ Sensible retry support (retry button appears on failure)
-- ✅ No premature "success" (only shows success after finalization completes)
-- ✅ Assumes non-technical users (all messages are user-friendly)
+### Client-Side Robustness
 
-**2. Improve client-side robustness**
+- Clear state transitions (state machine in `useChunkedUpload`)
+- Avoids "boolean soup" (uses status enum instead of multiple booleans)
+- Partial failure handling (failed chunks tracked, retry available)
+- Cancellation support (cancel button, abort signals)
+- Safe retry assumptions (resume with session ID)
 
-- ✅ Clear state transitions (state machine in `useChunkedUpload`)
-- ✅ Avoids "boolean soup" (uses status enum instead of multiple booleans)
-- ✅ Partial failure handling (failed chunks tracked, retry available)
-- ✅ Cancellation support (cancel button, abort signals)
-- ✅ Safe retry assumptions (resume with session ID)
+### Data Preview
 
-**3. Improve the data preview surface**
+- Handles wide datasets (20-100 columns) - see Data Preview section
+- Readable for non-technical users - see Data Preview section
+- Surfaces schema issues early - see Data Preview section
+- Prioritizes clarity over completeness - see Data Preview section
 
-- ✅ Handles wide datasets (20-100 columns) - see Data Preview section
-- ✅ Readable for non-technical users - see Data Preview section
-- ✅ Surfaces schema issues early - see Data Preview section
-- ✅ Prioritizes clarity over completeness - see Data Preview section
+### Additional Features
 
-**4. Document decisions**
+- **Resumable uploads** - Implemented via session ID and localStorage
+- **Chunk-level retry with backoff** - Exponential backoff (1s → 2s → 4s → 8s → 16s)
+- **Cancel or pause uploads** - Cancel button with abort signal support
+- **Improved progress accuracy** - Byte-based progress (not chunk-based)
 
-- ✅ This DECISIONS.md file covers what changed and why
-- ✅ Tradeoffs documented throughout
-- ✅ Backend "asks" documented where relevant
-
-### 🎯 Optional Extensions Implemented
-
-- ✅ **Resumable uploads** - Implemented via session ID and localStorage
-- ✅ **Chunk-level retry with backoff** - Exponential backoff (1s → 2s → 4s → 8s → 16s)
-- ✅ **Cancel or pause uploads** - Cancel button with abort signal support
-- ✅ **Improved progress accuracy** - Byte-based progress (not chunk-based)
-
-### 📝 What Was Intentionally Not Done
+### Future Improvements
 
 **Accessibility improvements:**
 
@@ -351,6 +339,5 @@ Fixes React hydration mismatches:
 - `hooks/useChunkedUpload.ts` - Refactored with automatic retry, byte-based progress, state machine, and resume capability
 - `components/UploadWizard.tsx` - Complete rewrite with phase indicators, status display, error handling, React 19 optimizations, and comprehensive documentation
 - `components/UploadWizard.module.css` - CSS modules with state-based styling, removed global classes
-- `app/api/upload/status/route.ts` - New API endpoint for checking upload status
 - `components/DataPreviewTable.tsx` - Complete rewrite with schema detection, responsive layout, sticky columns, and pagination
 - `lib/schema-detection.ts` - New utility module for detecting schema issues and calculating column statistics

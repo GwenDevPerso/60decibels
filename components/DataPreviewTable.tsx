@@ -122,7 +122,7 @@ export default function DataPreviewTable() {
       <div className={styles.columnsPanel}>
         <div className={styles.columnsHeader}>
           <span>Columns ({columns.length})</span>
-          {hasMoreColumns && (
+          {columns.length > DEFAULT_VISIBLE_COLUMNS && (
             <button
               onClick={() => setShowAllColumns(!showAllColumns)}
               className={styles.columnsToggleButton}
